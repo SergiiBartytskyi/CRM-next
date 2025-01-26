@@ -4,7 +4,6 @@ export interface LayoutProps {
   children: React.ReactNode;
 }
 export default function Layout({ children }: LayoutProps) {
-  console.log('loyaut render');
   return (
     <>
       <Sidebar />
