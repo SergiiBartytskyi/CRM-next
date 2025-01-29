@@ -4,7 +4,7 @@ import React from 'react';
 import PromotionForm from '@/app/components/promotion-form';
 
 export interface PageProps {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
 export default function Page({ params }: PageProps) {
