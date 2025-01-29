@@ -7,6 +7,7 @@ export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   disabled?: boolean;
 }
+
 export default function Button({ disabled, ...rest }: ButtonProps) {
   return (
     <button

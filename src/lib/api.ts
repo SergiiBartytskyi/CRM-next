@@ -4,6 +4,7 @@ export interface SummaryStats {
   newCompanies: number;
   activeCompanies: number;
 }
+
 export interface SummarySales {
   id: string;
   companyId: string;
@@ -11,20 +12,24 @@ export interface SummarySales {
   sold: number;
   income: number;
 }
+
 export interface Country {
   id: string;
   title: string;
 }
+
 export interface Category {
   id: string;
   title: string;
 }
+
 export enum CompanyStatus {
   Active = 'active',
   NotActive = 'notActive',
   Pending = 'pending',
   Suspended = 'suspended',
 }
+
 export interface Company {
   id: string;
   title: string;
@@ -38,6 +43,7 @@ export interface Company {
   countryTitle: string;
   avatar?: string;
 }
+
 export interface Promotion {
   id: string;
   title: string;
@@ -47,6 +53,7 @@ export interface Promotion {
   companyTitle: string;
   avatar?: string;
 }
+
 const PROJECT_TOKEN = process.env.NEXT_PUBLIC_PROJECT_TOKEN;
 
 const buildUrl = (...paths: string[]) =>
@@ -60,6 +67,7 @@ const sendRequest = async <T>(url: string, init?: RequestInit) => {
   if (!res.ok) {
     throw new Error(await res.text());
   }
+
   return (await res.json()) as T;
 };
 
@@ -95,4 +103,33 @@ export const getPromotions = async (
     `${buildUrl('promotions')}?${stringifyQueryParams(params)}`,
     init,
   );
+};
+
+export const createCompany = async (
+  data: Omit<Company, 'id' | 'hasPromotions'>,
+  init?: RequestInit,
+) => {
+  return sendRequest<Company>(buildUrl('companies'), {
+    ...init,
+    method: 'POST',
+    body: JSON.stringify(data),
+    headers: {
+      ...(init && init.headers),
+      'content-type': 'application/json',
+    },
+  });
+};
+
+export const createPromotion = async (
+  data: Omit<Promotion, 'id'>,
+  init?: RequestInit,
+) => {
+  return sendRequest<Promotion>(buildUrl('promotions'), {
+    method: 'POST',
+    body: JSON.stringify(data),
+    headers: {
+      ...(init && init.headers),
+      'content-type': 'application/json',
+    },
+  });
 };

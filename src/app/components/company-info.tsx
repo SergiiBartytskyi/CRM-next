@@ -1,4 +1,5 @@
 'use client';
+
 import React from 'react';
 import Image from 'next/image';
 import { useQuery } from '@tanstack/react-query';
@@ -17,7 +18,6 @@ export default function CompanyInfo({ companyId }: CompanyInfoProps) {
   });
 
   if (!company) return null;
-
   return (
     <div className="flex flex-col gap-5">
       <div className="flex flex-col items-center p-7 gap-5 bg-gray-900 rounded">

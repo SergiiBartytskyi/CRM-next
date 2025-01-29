@@ -5,6 +5,7 @@ import { Company, getCompany, getPromotions } from '@/lib/api';
 import getQueryClient from '@/lib/utils/getQueryClient';
 import CompanyInfo from '@/app/components/company-info';
 import CompanyPromotions from '@/app/components/company-promotions';
+
 export interface PageProps {
   params: { id: string };
 }
@@ -26,7 +27,6 @@ export default async function Page({ params }: PageProps) {
   });
 
   const company = queryClient.getQueryData(['companies', params.id]) as Company;
-
   if (!company) {
     notFound();
   }
@@ -46,46 +46,3 @@ export default async function Page({ params }: PageProps) {
     </HydrationBoundary>
   );
 }
-
-// 'use client';
-
-// import React, { useEffect } from 'react';
-// import Header from '@/app/components/header';
-// import { notFound } from 'next/navigation';
-
-// export interface PageProps {
-//   // params: { id: string };
-//   params: Promise<{ id: string }>;
-// }
-
-// export default function Page({ params }: PageProps) {
-//   const { id } = React.use(params);
-
-//   useEffect(() => {
-//     const parsedId = Number.parseInt(id);
-//     if (Number.isNaN(parsedId)) {
-//       notFound();
-//     }
-//   }, [id]);
-
-//   return (
-//     <>
-//       <Header>Company ({id})</Header>
-//     </>
-//   );
-// }
-
-// export default function Page({ params }: PageProps) {
-//   useEffect(() => {
-//     const id = Number.parseInt(params.id);
-//     if (Number.isNaN(id)) {
-//       notFound();
-//     }
-//   }, [params.id]);
-
-//   return (
-//     <>
-//       <Header>Company ({params.id})</Header>
-//     </>
-//   );
-// }
